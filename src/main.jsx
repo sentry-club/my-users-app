@@ -14,7 +14,7 @@ import "semantic-ui-css/semantic.min.css";
 import { App } from "./App";
 
 Sentry.init({
-  dsn: "",
+  dsn: import.meta.env.VITE_SENTRY_DSN,
   integrations: [new BrowserTracing()],
 
   beforeSend(event, hint) {

@@ -14,14 +14,14 @@ export const UsersTable = () => {
   useEffect(() => {
     const fetchData = async () => {
       // side-effects calling
-      const result = await axios("http://34.234.79.33:5000/users");
+      const result = await axios(import.meta.env.VITE_SERVICE_ADDRESS);
 
       console.log(result.data.results);
       setUsers(result.data.results);
     };
 
     fetchData();
-  }, []);
+  });
 
   // preparing the users table
   const tableColumns = useMemo(() => {
@@ -45,7 +45,7 @@ export const UsersTable = () => {
     ];
   });
 
-  const tableData = useMemo(() => users, []);
+  const tableData = useMemo(() => users, [users]);
 
   return <SortableTable columnsConfiguration={tableColumns} data={tableData} />;
 };
