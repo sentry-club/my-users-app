@@ -12,16 +12,18 @@ export const UsersTable = () => {
   const [users, setUsers] = useState([]);
 
   useEffect(() => {
-    const fetchData = async () => {
-      // side-effects calling
-      const result = await axios(import.meta.env.VITE_SERVICE_ADDRESS);
+    let toMount = true;
 
-      console.log(result.data.results);
-      setUsers(result.data.results);
-    };
+    // side-effects calling
+    axios(import.meta.env.VITE_SERVICE_ADDRESS).then((result) => {
+      if (toMount) {
+        console.log(result.data.results);
+        setUsers(result.data.results);
+      }
+    });
 
-    fetchData();
-  });
+    return () => (mounted = false);
+  }, []);
 
   // preparing the users table
   const tableColumns = useMemo(() => {
